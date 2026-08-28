@@ -168,7 +168,14 @@ class DataFrame:
         elif isinstance(condition, str):
             predicate = _expression_filter(condition)
         else:
-            predicate = lambda row: bool(condition)
+            from .sql.functions import Column, Comparison
+
+            if isinstance(condition, Column):
+                predicate = lambda row: bool(row.get(condition.name))
+            elif isinstance(condition, Comparison):
+                predicate = lambda row: _compare_condition(condition, row)
+            else:
+                predicate = lambda row: bool(condition)
         return DataFrame([row for row in self._rows if predicate(row)], self._columns)
 
     def where(self, condition):
@@ -300,3 +307,11 @@ def _compare(left, operator, right):
     if operator == "<=":
         return left <= right
     return False
+
+
+def _compare_condition(condition, row):
+    from .sql.functions import Column
+
+    left = condition.left.evaluate(row) if hasattr(condition.left, "evaluate") else row.get(condition.left.name) if isinstance(condition.left, Column) else condition.left
+    right = condition.right.evaluate(row) if hasattr(condition.right, "evaluate") else condition.right
+    return _compare(left, condition.operator, right)

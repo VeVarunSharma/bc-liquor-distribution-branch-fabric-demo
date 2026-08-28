@@ -7,6 +7,9 @@ class Column:
     def __init__(self, name: str) -> None:
         self.name = name
 
+    def evaluate(self, row):
+        return row.get(self.name)
+
     def __str__(self) -> str:
         return self.name
 
@@ -48,6 +51,9 @@ class FunctionExpression:
         self.column_name = column_name
         self.alias_name = alias_name
 
+    def evaluate(self, row):
+        return row.get(self.column_name)
+
     @property
     def output_name(self) -> str:
         if self.alias_name:
@@ -62,6 +68,9 @@ class FunctionExpression:
 class Literal:
     def __init__(self, value: Any) -> None:
         self.value = value
+
+    def evaluate(self, row):
+        return self.value
 
 
 def col(name: str):

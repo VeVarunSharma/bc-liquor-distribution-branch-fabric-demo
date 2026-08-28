@@ -24,6 +24,10 @@ def load_liquor_data(data_path: str | os.PathLike[str] | None = None, rows: Sequ
     return DataFrame(SAMPLE_ROWS)
 
 
+def read_liquor_data(data_path: str | os.PathLike[str] | None = None, rows: Sequence[dict] | None = None):
+    return load_liquor_data(data_path=data_path, rows=rows)
+
+
 def _normalise_column_name(name):
     cleaned = str(name).strip().lower().replace(" ", "_").replace("-", "_")
     aliases = {"sales_amount": "revenue", "total_sales": "revenue", "qty": "quantity", "volume": "quantity"}
@@ -41,7 +45,7 @@ def _coerce_float(value):
         return 0.0
 
 
-def _normalise_rows(df: DataFrame):
+def normalize_columns(df: DataFrame):
     rows = []
     for row in df.collect():
         converted = {}
@@ -52,7 +56,29 @@ def _normalise_rows(df: DataFrame):
     return DataFrame(rows)
 
 
+def _normalise_rows(df: DataFrame):
+    return normalize_columns(df)
+
+
+def prepare_data(df: DataFrame):
+    df = _normalise_rows(df)
+
+    for column in ["branch", "product", "quantity", "unit_price", "revenue"]:
+        if column not in df.columns:
+            df = df.withColumn(column, 0 if column in {"quantity", "unit_price", "revenue"} else "unknown")
+
+    df = df.withColumn("branch", lambda row: str(row.get("branch", "unknown")).strip().title() or "Unknown")
+    df = df.withColumn("quantity", lambda row: _coerce_float(row.get("quantity")))
+    df = df.withColumn("unit_price", lambda row: _coerce_float(row.get("unit_price")))
+    df = df.withColumn("revenue", lambda row: _coerce_float(row.get("revenue")))
+    if "total_volume" not in df.columns:
+        df = df.withColumn("total_volume", lambda row: (row.get("quantity") or 0) * (row.get("unit_price") or 0))
+    df = df.fillna({"branch": "Unknown", "quantity": 0.0, "unit_price": 0.0, "revenue": 0.0, "total_volume": 0.0})
+    return df
+
+
 def _prepare_data(df: DataFrame):
+    return prepare_data(df)
     df = _normalise_rows(df)
 
     for column in ["branch", "product", "quantity", "unit_price", "revenue"]:
