@@ -1,0 +1,101 @@
+# Draft proposal only: the catalog repository returned HTTP 404 during review.
+# Field names and vocabulary MUST be mapped to its actual schema before submission.
+id: canopy-operations
+name: Canopy Operations
+status: draft
+summary: >-
+  Synthetic urban-forestry dashboard mockup for exploring inventory,
+  condition, and maintenance-prioritization conversations.
+repository: https://github.com/VeVarunSharma/bc-liquor-distribution-branch-fabric-demo
+documentation: https://github.com/VeVarunSharma/bc-liquor-distribution-branch-fabric-demo/blob/main/README.md
+catalog:
+  target: https://github.com/mcaps-microsoft/accelerators-catalog
+  schema_validated: false
+  submitted: false
+  blocker: Catalog access and current submission schema must be confirmed.
+customer:
+  account: Reusable / cross-industry
+  demonstrated_scenario: Municipal urban forestry
+  endorsement_confirmed: false
+industry:
+  - Public sector
+personas:
+  primary: Urban-forestry operations manager
+  secondary:
+    - Data engineer
+    - Solution engineer
+    - Cloud solution architect
+    - Account team
+readiness:
+  assessed_on: "2026-10-18"
+  current: prototype-visual-mockup
+  first_target: demo-ready
+  catalog_ready: false
+  runtime_verified: false
+  deployment_verified: false
+  blockers:
+    - Repository naming and demonstrated customer scenario are not aligned.
+    - Locked package feed was unreachable; installation and execution are unverified.
+    - Real browser screenshots and narrated demo are not captured.
+    - Search, date, export, and work-plan controls are decorative.
+    - Live data integration and persisted operational handoff are not implemented.
+    - Root CI, security review, support ownership, and catalog validation remain open.
+technology:
+  implemented:
+    - React
+    - TypeScript
+    - Vite
+    - Tailwind CSS
+  scaffolded_not_validated:
+    - Microsoft Fabric Apps
+    - Power BI semantic model query SDK
+    - Rayfin embedded authentication and static hosting
+experience:
+  mode: synthetic-visual-mockup
+  live_data: false
+  automated_dispatch: false
+  outcome: Human identifies an example inspection and records a next action outside the app.
+  demo_durations_minutes:
+    - 5
+    - 15
+assets:
+  readme: README.md
+  architecture: README.md#architecture--current-versus-proposed
+  demo_scripts: README.md#4-demo-experience
+  setup: README.md#quick-start--local-synthetic-preview
+  deployment: README.md#deployment-guide--gated-fabric-path
+  sample_data: tree-inventory-app/src/data/demo-tree-inventory.ts
+  screenshots: []
+  video: null
+engagement:
+  motion: Discovery workshop followed by an approved read-only pilot
+  pilot_scope: One district, one prioritization decision, one human-approved handoff
+  success_criteria:
+    - Measures reconcile with the customer-approved reference extract.
+    - Role-access tests pass.
+    - The operations lead can explain each shortlisted inspection.
+    - Each proposed handoff has a named owner and traceable approval.
+    - Prioritization time meets a customer-agreed improvement against a recorded baseline.
+reuse:
+  reusable:
+    - Dashboard presentation components and theme support
+    - Typed synthetic fixture structure
+    - Customer story, demo flows, discovery questions, and architecture pattern
+  customize:
+    - Industry vocabulary and account-approved branding
+    - Authoritative data sources, measures, geography, and risk definitions
+    - Identity, hosting, authorization, and work-management integration
+security:
+  data_classification: Synthetic presentation fixtures
+  release_review_complete: false
+  client_environment_values_are_public: true
+  customer_data_requires_explicit_approval: true
+support:
+  owner: null
+  owner_status: Must be confirmed before external release
+  issues: https://github.com/VeVarunSharma/bc-liquor-distribution-branch-fabric-demo/issues
+  sla: None established
+license:
+  application: MIT
+  file: tree-inventory-app/LICENSE
+  redistribution_review_complete: false
