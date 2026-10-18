@@ -1,5 +1,15 @@
 
-# Fabric Apps - Analytics Template
+# Canopy Operations application
+
+> **Start with the [repository README](../README.md)** for the current customer
+> story, setup, readiness assessment, demo scripts, deployment boundaries, and
+> support guidance. The app currently renders synthetic urban-tree inventory,
+> not liquor-distribution data or a connected semantic model.
+>
+> The instructions below are inherited **starter-template authoring guidance**,
+> not the current application's quick start or a verified deployment procedure.
+
+## Inherited Fabric Apps - Analytics Template
 
 > **⚠️ This repository is under active development.** Features and instructions may change.
 
